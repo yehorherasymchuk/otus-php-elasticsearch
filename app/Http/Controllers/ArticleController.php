@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
 use App\Services\Articles\ArticleService;
 use Illuminate\Http\Request;
 use View;
@@ -47,6 +46,7 @@ class ArticleController extends Controller
 
         View::share([
             'article' => $article,
+            'articleViews' => $article->views,
         ]);
         return view('articles.show');
     }

@@ -2,15 +2,29 @@
 
 namespace App\Providers;
 
+use App\Services\Articles\Repositories\Cache\CacheArticleRepository;
+use App\Services\Articles\Repositories\Cache\RedisCacheArticleRepository;
 use App\Services\Articles\Repositories\ElasticsearchSearchSearchArticleRepository;
+use App\Services\Articles\Repositories\EloquentArticleRepository;
 use App\Services\Articles\Repositories\SearchArticleRepository;
 use App\Services\Articles\Repositories\EloquentSearchArticleRepository;
+use App\Services\Articles\Repositories\Statistics\RedisViewsArticleRepository;
+use App\Services\Articles\Repositories\Statistics\ViewsArticleRepository;
+use App\Services\Articles\Repositories\WriteArticleRepository;
 use Elasticsearch\Client as ElasticsearchClient;
 use Elasticsearch\ClientBuilder;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+
+    public $bindings = [
+        WriteArticleRepository::class => EloquentArticleRepository::class,
+        CacheArticleRepository::class => RedisCacheArticleRepository::class,
+        SearchArticleRepository::class => ElasticsearchSearchSearchArticleRepository::class,
+        ViewsArticleRepository::class => RedisViewsArticleRepository::class,
+    ];
+
     /**
      * Register any application services.
      *
@@ -18,7 +32,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(SearchArticleRepository::class, ElasticsearchSearchSearchArticleRepository::class);
         $this->bindSearchClient();
     }
 

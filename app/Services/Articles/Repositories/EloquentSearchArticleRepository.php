@@ -13,10 +13,6 @@ use Illuminate\Support\Collection;
 
 class EloquentSearchArticleRepository implements SearchArticleRepository
 {
-    public function find(int $id): ?Article
-    {
-        return Article::find($id);
-    }
 
     public function search(string $q, int $limit, int $offset): Collection
     {

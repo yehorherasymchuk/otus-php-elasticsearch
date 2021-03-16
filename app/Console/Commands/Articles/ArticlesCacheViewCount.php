@@ -16,23 +16,18 @@ class ArticlesCacheViewCount extends Command
 {
 
     protected $signature = 'articles:views:cache';
-    private ViewsArticleRepository $viewsArticleRepository;
 
-    public function __construct(
-        ViewsArticleRepository $viewsArticleRepository
-    )
+    private function getViewsArticleRepository(): ViewsArticleRepository
     {
-        parent::__construct();
-        $this->viewsArticleRepository = $viewsArticleRepository;
+        return app(ViewsArticleRepository::class);
     }
-
 
     public function handle()
     {
         $this->info('Indexing all articles. This might take a while...');
         foreach (Article::cursor() as $article)
         {
-            $this->viewsArticleRepository->setViewsCount($article, $article->views);
+//            $this->getViewsArticleRepository()->setViewsCount($article, $article->views);
             $this->output->write('.');
         }
         $this->info('\\nDone!');

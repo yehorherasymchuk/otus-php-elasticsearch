@@ -14,7 +14,6 @@ use Illuminate\Support\Collection;
 interface SearchArticleRepository
 {
 
-    public function find(int $id): ?Article;
     public function search(string $q, int $limit, int $offset): Collection;
 
 }

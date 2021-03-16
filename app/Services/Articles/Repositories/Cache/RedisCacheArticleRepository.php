@@ -29,9 +29,9 @@ final class RedisCacheArticleRepository implements CacheArticleRepository
         $this->client = $connection->client();
     }
 
-    public function getAll(int $limit, int $offset = 0): Collection
+    public function getAll(): Collection
     {
-        // TODO: Implement getAll() method.
+        return collect();
     }
 
     public function find(int $id): ?Article

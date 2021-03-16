@@ -20,4 +20,11 @@ class Article extends Model
     protected $casts = [
         'tags' => 'array',
     ];
+
+    public $fillable = [
+        'id',
+        'title',
+        'body',
+        'tags',
+    ];
 }
